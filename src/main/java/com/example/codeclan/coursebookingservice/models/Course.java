@@ -1,16 +1,14 @@
 package com.example.codeclan.coursebookingservice.models;
 
-import com.example.codeclan.coursebookingservice.repositories.CustomerRepository.CustomerRepository;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "customers")
-public class Customer {
+@Table(name="courses")
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,21 +21,21 @@ public class Customer {
     private String town;
 
     @Column
-    private int age;
+    private int rating;
 
-    @JsonIgnoreProperties("customer")
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany
     private List<Booking> bookings;
 
-    public Customer(String name, String town, int age) {
-        this.name = name;
-        this.town = town;
-        this.age = age;
-        this.bookings = new ArrayList<>();
+    public Course() {
+
     }
 
-    public Customer() {
-
+    public Course(String name, String town, int rating) {
+        this.name = name;
+        this.town = town;
+        this.rating = rating;
+        this.bookings = new ArrayList<>();
     }
 
     public Long getId() {
@@ -64,20 +62,12 @@ public class Customer {
         this.town = town;
     }
 
-    public int getAge() {
-        return age;
+    public int getRating() {
+        return rating;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public List<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(List<Booking> bookings) {
-        this.bookings = bookings;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public void addBooking(Booking booking) {
